@@ -1,15 +1,14 @@
-﻿@model IEnumerable<SportsStoreDomain.Entities.Product>
+﻿@model SportsStore.Models.ProductListViewModel
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Products";
 }
 
-<h2>List</h2>
-
-@foreach (var p in Model)
+<h2>产品列表</h2>
+@foreach (var p in Model.Products)
 {
-    <div>
-        <h3>@p.Name</h3>
-        <h4>@p.Price.ToString("c")</h4>
-    </div>
+    @Html.Partial("ProductSummary",p)
 }
+<div class="btn-group pull-right">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</div>
