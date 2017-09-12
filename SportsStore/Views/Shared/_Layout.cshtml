@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("PerfectStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("DreamStore", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -26,10 +26,11 @@
         </div>
     </div>
 
-    <div class="container body-content">
+    <div class="container">
         <div class="row">
             <div id="categories" class="col-xs-3">
-                put something useful here later
+                <br />
+                @Html.Action("Menu","Nav")
             </div>
             <div class="col-xs-8">
                 @RenderBody()
