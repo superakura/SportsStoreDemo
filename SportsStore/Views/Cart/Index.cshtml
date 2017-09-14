@@ -1,0 +1,38 @@
+﻿@model SportsStore.Models.CartIndexViewModel
+@{
+    ViewBag.Title = "Dream Store：购物车";
+}
+
+<h2>购物车</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>商品</th>
+            <th class="text-center">数量</th>
+            <th class="text-right">价格</th>
+            <th class="text-right">小计</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cart.Lines)
+        {
+            <tr>
+                <td class="text-left">@item.Product.Name</td>
+                <td class="text-center">@item.Quantity</td>
+                <td class="text-right">@item.Product.Price.ToString("c")</td>
+                <td class="text-right">@((item.Product.Price*item.Quantity).ToString("c"))</td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td class="text-right" colspan="3">总价：</td>
+            <td class="text-right">@Model.Cart.ComputerTotalValue().ToString("c")</td>
+        </tr>
+    </tfoot>
+</table>
+<div class="text-center">
+    <a class="btn btn-primary" href="@Model.ReturnUrl">继续购物</a>
+</div>
+
+
