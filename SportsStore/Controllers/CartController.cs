@@ -17,43 +17,51 @@ namespace SportsStore.Controllers
             this._repository = repo;
         }
 
+        #region 使用模型绑定前，通过GetCart获取cart对象
         private Cart GetCart()
         {
             Cart cart = (Cart)Session["Cart"];
-            if (cart==null)
+            if (cart == null)
             {
                 cart = new Cart();
                 Session["Cart"] = cart;
             }
             return cart;
         }
+        #endregion
 
-        public RedirectToRouteResult AddToCart(int productId,string returnUrl)
+
+        public RedirectToRouteResult AddToCart(Cart cart,int productId,string returnUrl)
         {
             Product product = this._repository.Products.FirstOrDefault(f => f.ProductID == productId);
             if (product!=null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int productId,string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId,string returnUrl)
         {
             Product product = this._repository.Products.FirstOrDefault(f => f.ProductID == productId);
             if (product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             CartIndexViewModel cartIndexViewModel = new CartIndexViewModel();
-            cartIndexViewModel.Cart = GetCart();
+            cartIndexViewModel.Cart = cart;
             cartIndexViewModel.ReturnUrl = returnUrl;
             return View(cartIndexViewModel);
+        }
+
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
         }
     }
 }

@@ -1,0 +1,14 @@
+﻿@model SportsStoreDomain.Entities.Cart
+<div class="navbar-right">
+    @Html.ActionLink("结算","Index","Cart",
+    new { returnUrl=Request.Url.PathAndQuery},
+    new { @class="btn btn-default navbar-btn"})
+</div>
+
+<div class="navbar-text navbar-right">
+    <b>我的购物车:</b>
+    (@Model.Lines.Sum(s=>s.Quantity))
+    <b>总价:</b>
+    @Model.ComputerTotalValue().ToString("c")
+    &nbsp;
+</div>

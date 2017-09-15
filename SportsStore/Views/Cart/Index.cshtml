@@ -2,15 +2,20 @@
 @{
     ViewBag.Title = "Dream Store：购物车";
 }
-
+<style>
+    #cartTable td{
+        vertical-align:middle;
+    }
+</style>
 <h2>购物车</h2>
-<table class="table">
+<table id="cartTable" class="table">
     <thead>
         <tr>
             <th>商品</th>
             <th class="text-center">数量</th>
             <th class="text-right">价格</th>
             <th class="text-right">小计</th>
+            <th class="text-center">操作</th>
         </tr>
     </thead>
     <tbody>
@@ -21,6 +26,14 @@
                 <td class="text-center">@item.Quantity</td>
                 <td class="text-right">@item.Product.Price.ToString("c")</td>
                 <td class="text-right">@((item.Product.Price*item.Quantity).ToString("c"))</td>
+                <td class="text-center">
+                    @using (Html.BeginForm("RemoveFromCart","Cart"))
+                    {
+                        @Html.Hidden("ProductId",item.Product.ProductID)
+                        @Html.HiddenFor(x=>x.ReturnUrl)
+                        <input type="submit" value="删除" class="btn btn-warning btn-sm" />
+                    }
+                </td>
             </tr>
         }
     </tbody>
