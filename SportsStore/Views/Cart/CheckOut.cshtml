@@ -1,0 +1,39 @@
+﻿@model SportsStoreDomain.Entities.ShippingDetail
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<h2>订单结算</h2>
+<p>请输入你的详细信息,我们将用最快的方式将东西送到你的地址！</p>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary()
+   <h3>邮寄到</h3>
+   <div class="form-group">
+       <label>姓名</label>
+       @Html.TextBoxFor(x => x.Name, new { @class="form-control"})
+   </div>
+   <h3>地址</h3>
+    foreach (var item in ViewData.ModelMetadata.Properties)
+    {
+        if (item.PropertyName!="Name"&&item.PropertyName!="GiftWrap")
+        {
+            <div class="form-group">
+                <label>@(item.DisplayName??item.PropertyName)</label>
+                @Html.TextBox(item.PropertyName,null,new {@class="form-control" })
+            </div>
+        }
+    }
+    <h3>选项</h3>
+    <div class="checkbox">
+        <label>
+            @Html.EditorFor(x => x.GiftWrap)
+            是否礼物包装
+        </label>
+    </div>
+    <div class="text-left">
+        <input class="btn btn-primary" type="submit" value="完成订单" />
+    </div>
+}
+
+

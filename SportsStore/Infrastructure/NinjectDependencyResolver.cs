@@ -8,6 +8,7 @@ using Moq;
 using SportsStoreDomain.Entities;
 using SportsStoreDomain.Abstract;
 using SportsStoreDomain.Concrete;
+using System.Configuration;
 
 namespace SportsStore.Infrastructure
 {
@@ -44,6 +45,11 @@ namespace SportsStore.Infrastructure
             #endregion
 
             this._kernel.Bind<IProductsRepository>().To<EFProductRepository>();
+            EmailSettings emailSettings = new EmailSettings
+            {
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
+            };
+            this._kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
         }
     }
 }

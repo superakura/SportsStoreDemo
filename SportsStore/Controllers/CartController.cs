@@ -12,9 +12,11 @@ namespace SportsStore.Controllers
     public class CartController : Controller
     {
         private IProductsRepository _repository;
-        public CartController (IProductsRepository repo)
+        private IOrderProcessor _orderProcessor;
+        public CartController (IProductsRepository repo,IOrderProcessor proc)
         {
             this._repository = repo;
+            this._orderProcessor = proc;
         }
 
         #region 使用模型绑定前，通过GetCart获取cart对象
@@ -62,6 +64,30 @@ namespace SportsStore.Controllers
         public PartialViewResult Summary(Cart cart)
         {
             return PartialView(cart);
+        }
+
+        public ViewResult CheckOut()
+        {
+            return View(new ShippingDetail());
+        }
+
+        [HttpPost]
+        public ViewResult CheckOut(Cart cart, ShippingDetail shippingDetails)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "对不起，您的购物车为空！");
+            }
+            if (ModelState.IsValid)
+            {
+                this._orderProcessor.ProcessOrder(cart, shippingDetails);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(shippingDetails);
+            }
         }
     }
 }
