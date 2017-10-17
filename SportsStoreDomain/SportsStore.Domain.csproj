@@ -85,9 +85,9 @@
     <Compile Include="Entities\Cart.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ShippingDetail.cs" />
-    <Compile Include="Migrations\201708290059343_EditDB.cs" />
-    <Compile Include="Migrations\201708290059343_EditDB.Designer.cs">
-      <DependentUpon>201708290059343_EditDB.cs</DependentUpon>
+    <Compile Include="Migrations\201710170652366_EditDB.cs" />
+    <Compile Include="Migrations\201710170652366_EditDB.Designer.cs">
+      <DependentUpon>201710170652366_EditDB.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -97,8 +97,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201708290059343_EditDB.resx">
-      <DependentUpon>201708290059343_EditDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201710170652366_EditDB.resx">
+      <DependentUpon>201710170652366_EditDB.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

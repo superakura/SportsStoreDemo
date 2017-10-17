@@ -13,7 +13,7 @@ namespace SportsStoreDomain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201708290059343_EditDB"; }
+            get { return "201710170652366_EditDB"; }
         }
         
         string IMigrationMetadata.Source
