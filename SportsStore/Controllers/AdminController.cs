@@ -11,14 +11,17 @@ namespace SportsStore.Controllers
     public class AdminController : Controller
     {
         private IProductsRepository _repository;
+
         public AdminController(IProductsRepository repo)
         {
             this._repository = repo;
         }
+
         public ViewResult Index()
         {
-            return View(this._repository.Products);
+            return View(this._repository.Products.OrderBy(o=>o.Category));
         }
+
         public ViewResult Edit(int productId)
         {
             Product product = this._repository.Products.FirstOrDefault(f => f.ProductID == productId);

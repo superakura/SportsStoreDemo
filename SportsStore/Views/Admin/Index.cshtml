@@ -15,6 +15,7 @@
                     <th>ID</th>
                     <th>名称</th>
                     <th>价格</th>
+                    <th>类别</th>
                     <th>操作</th>
                 </tr>
             </thead>
@@ -25,11 +26,12 @@
                         <td>@item.ProductID</td>
                         <td>@Html.ActionLink(item.Name,"Edit",new { item.ProductID })</td>
                         <td>@item.Price.ToString("c")</td>
+                        <td>@item.Category</td>
                         <td>
                             @using (Html.BeginForm("Delete","Admin"))
                             {
                                 @Html.Hidden("ProductID",item.ProductID)
-                                <input type="submit" class="btn btn-danger btn-xs" name="Del" value="删除" />
+                                <input type="submit" class="btn btn-danger btn-sm" name="Del" value="删除" />
                             }
                         </td>
                     </tr>
