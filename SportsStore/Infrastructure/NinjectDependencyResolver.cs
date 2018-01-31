@@ -9,6 +9,8 @@ using SportsStoreDomain.Entities;
 using SportsStoreDomain.Abstract;
 using SportsStoreDomain.Concrete;
 using System.Configuration;
+using SportsStore.Infrastructure.Abstract;
+using SportsStore.Infrastructure.Concrete;
 
 namespace SportsStore.Infrastructure
 {
@@ -50,6 +52,7 @@ namespace SportsStore.Infrastructure
                 WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
             this._kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
+            this._kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

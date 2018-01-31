@@ -37,7 +37,7 @@ namespace SportsStore.Tests
             Product[] proArray = result.Products.ToArray();
             Assert.IsTrue(proArray.Length == 2);
             Assert.AreEqual(proArray[0].Name, "p3");
-            Assert.AreEqual(proArray[1].Name, "p4");
+            Assert.AreEqual(proArray[1].Name, "p2");
         }
 
         [TestMethod]
@@ -109,8 +109,8 @@ namespace SportsStore.Tests
 
             //断言
             Assert.AreEqual(result.Length, 2);
-            Assert.IsTrue(result[0].Name == "p2" && result[0].Category == "cat2");
-            Assert.IsTrue(result[1].Name == "p4" && result[1].Category == "cat2");
+            Assert.IsTrue(result[0].Name == "p4" && result[0].Category == "cat2");
+            Assert.IsTrue(result[1].Name == "p2" && result[1].Category == "cat2");
         }
 
         [TestMethod]
