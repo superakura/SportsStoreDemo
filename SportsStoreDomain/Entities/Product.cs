@@ -26,5 +26,9 @@ namespace SportsStoreDomain.Entities
 
         [Required(ErrorMessage ="请输入一个商品分类！")]
         public string Category { get; set; }
+
+        public byte[] ImageData { get; set; }
+
+        public string ImageMimeType { get; set; }
     }
 }

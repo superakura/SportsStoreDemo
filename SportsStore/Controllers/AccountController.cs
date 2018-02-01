@@ -10,12 +10,13 @@ namespace SportsStore.Controllers
 {
     public class AccountController : Controller
     {
-        IAuthProvider authProvider;
+        IAuthProvider _authProvider;
 
         public AccountController(IAuthProvider auth)
         {
-            authProvider = auth;
+            this._authProvider = auth;
         }
+
         public ViewResult Login()
         {
             return View();
@@ -26,7 +27,7 @@ namespace SportsStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (authProvider.Authenticate(model.UserName,model.Password))
+                if (this._authProvider.Authenticate(model.UserName,model.Password))
                 {
                     return Redirect(returnUrl ?? Url.Action("Index", "Admin"));
                 }

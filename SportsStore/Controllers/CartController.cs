@@ -13,6 +13,7 @@ namespace SportsStore.Controllers
     {
         private IProductsRepository _repository;
         private IOrderProcessor _orderProcessor;
+
         public CartController (IProductsRepository repo,IOrderProcessor proc)
         {
             this._repository = repo;
@@ -31,7 +32,6 @@ namespace SportsStore.Controllers
             return cart;
         }
         #endregion
-
 
         public RedirectToRouteResult AddToCart(Cart cart,int productId,string returnUrl)
         {

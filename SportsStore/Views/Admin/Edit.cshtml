@@ -7,30 +7,53 @@
     <div class="panel-heading">
         <h3>@Model.Name</h3>
     </div>
-    @using (Html.BeginForm("Edit","Admin"))
+    @using (Html.BeginForm("Edit","Admin",FormMethod.Post,new { enctype="multipart/form-data"}))
     {
         <div class="panel-body">
-
             @Html.HiddenFor(m => m.ProductID)
             @foreach (var item in ViewData.ModelMetadata.Properties)
             {
-                if (item.PropertyName != "ProductID")
+                switch (item.PropertyName)
                 {
-                    <div class="form-group">
-                        <label>@(item.DisplayName ?? item.PropertyName)</label>
-                        @if (item.PropertyName == "Description")
-                        {
-                            @Html.TextArea(item.PropertyName, null, new { @class = "form-control", rows = 5 })
-                        }
-                        else
-                        {
-                            @Html.TextBox(item.PropertyName, null, new { @class = "form-control" })
-                        }
-                    </div>
-                    @Html.ValidationMessage(item.PropertyName)
+                    case "ProductID":
+                    case "ImageData":
+                    case "ImageMimeType":
+                        break;
+                    default:
+                        <div class="form-group">
+                            <label>@(item.DisplayName ?? item.PropertyName)</label>
+                            @if (item.PropertyName == "Description")
+                            {
+                                @Html.TextArea(item.PropertyName, null, new { @class = "form-control", rows = 5 })
+                            }
+                            else
+                            {
+                                @Html.TextBox(item.PropertyName, null, new { @class = "form-control" })
+                            }
+                        </div>
+                        @Html.ValidationMessage(item.PropertyName)
+                        break;
                 }
             }
-
+            <div class="form-group">
+                <div style="position:relative">
+                    <label>商品图片</label>
+                    <a class="btn btn-default" href="javascript:;">
+                        选择文件<input type="file" name="Image" size="40"
+                                     style="position:absolute;z-index:2;top:0;left:0;filter:alpha(opacity=0);opacity:0;background-color:transparent;color:transparent;"
+                                     onchange="$('#upload-file-info').html($(this).val());" />
+                    </a>
+                    <span class="label label-info" id="upload-file-info"></span>
+                </div>
+                @if (Model.ImageData==null)
+                {
+                    <div class="form-control-static">没有图片</div>
+                }
+                else
+                {
+                    <img class="img-thumbnail" width="150" height="150" src="@Url.Action("GetImage","Product",new { Model.ProductID})" />
+                }
+            </div>
         </div>
 
         <div class="panel-footer">
